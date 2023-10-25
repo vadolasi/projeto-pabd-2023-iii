@@ -6,10 +6,13 @@ var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var clientesRouter = require('./routes/clientes');
+var comprasRouter = require('./routes/compras');
+var fornrcedoresRouter = require('./routes/fornecedores');
 var funcionariosRouter = require('./routes/funcionarios');
-var produtosRouter = require('./routes/produtos');
 var ingredientesRouter = require('./routes/ingredientes');
+var produtosRouter = require('./routes/produtos');
+var vendasRouter = require('./routes/vendas');
 
 var app = express();
 
@@ -28,10 +31,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/clientes', clientesRouter);
+app.use('/compras', comprasRouter);
+app.use('/fornecedores', fornrcedoresRouter);
 app.use('/funcionarios', funcionariosRouter);
-app.use('/produtos', produtosRouter);
 app.use('/ingredientes', ingredientesRouter);
+app.use('/produtos', produtosRouter);
+app.use('/vendas', vendasRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
