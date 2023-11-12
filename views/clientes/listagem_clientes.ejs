@@ -1,3 +1,25 @@
 <%- contentFor('title') %> Clientes
 <%- contentFor('body') %>
-<h1>Clientes</h1>
+<h1 class="text-3xl font-bold">Clientes</h1>
+<span class="text-lg mt-2"><%= clientes.length %> clientes cadastrados</span>
+
+<table class="table-auto border-collapse border border-black rounded mt-10 overflow-auto mb-10">
+    <thead>
+        <tr class="font-bold">
+            <th class="border border-black py-1 px-3 text-left">Código</th>
+            <th class="border border-black py-1 px-3 text-left">Nome</th>
+            <th class="border border-black py-1 px-3 text-left">CPF</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for (const cliente of clientes) { %>
+            <tr>
+                <td class="border border-black py-1 px-3 text-left"><%= cliente.codigo %></td>
+                <td class="border border-black py-1 px-3 text-left"><%= cliente.nome %></td>
+                <td class="border border-black py-1 px-3 text-left"><%= cliente.cpf %></td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+
+<a class="rounded-lg bg-primary font-semibold text-white text-lg p-2" href="/clientes/cadastrar">Cadastrar cliente</a>

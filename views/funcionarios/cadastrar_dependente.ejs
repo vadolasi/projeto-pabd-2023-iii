@@ -1,3 +1,31 @@
 <%- contentFor('title') %> Cadastrar dependente
 <%- contentFor('body') %>
-<h1>Cadastrar dependente</h1>
+<h1 class="text-3xl font-bold">Cadastrar dependente</h1>
+<form class="w-1/4 flex flex-col gap-4 mt-5">
+    <div class="flex flex-col gap-2">
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" id="nome" class="border border-black rounded-lg focus:outline-none p-2 bg-white" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="cpf">CPF</label>
+        <input type="text" name="cpf" id="cpf" class="border border-black rounded-lg focus:outline-none p-2 bg-white" />
+    </div>
+    <! -- select para parentesco -->
+    <div class="flex flex-col gap-2">
+        <label for="parentesco">Parentesco</label>
+        <select name="parentesco" id="parentesco" class="border border-black rounded-lg focus:outline-none p-2 bg-white">
+            <option class="text-gray-200" value="" selected disabled hidden>Selecione uma opção</option>
+            <option value="1">Irmão(a)</option>
+            <option value="2">Filho(a)</option>
+            <option value="3">Pai</option>
+            <option value="4">Mãe</option>
+            <option value="5">Avô(ó)</option>
+            <option value="6">Tio(a)</option>
+            <option value="7">Primo(a)</option>
+            <option value="8">Sobrinho(a)</option>
+            <option value="9">Neto(a)</option>
+            <option value="10">Cônjuge</option>
+        </select>
+    </div>
+    <button class="rounded-lg bg-primary font-semibold text-white text-lg py-2 px-5 mt-5 w-min">Cadastrar</button>
+</form>

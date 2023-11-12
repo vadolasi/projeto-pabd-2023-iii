@@ -1,3 +1,38 @@
-<%- contentFor('title') %> <%- title %>
+<%- contentFor('title') %> <%= title %>
 <%- contentFor('body') %>
-<h1>Vitor Danie</h1>
+<h1 class="text-3xl font-bold">Vitor Daniel</h1>
+
+<div class="grid grid-cols-2 mt-2 gap-2 w-175">
+    <span class="text-lg mt-2"><strong>Código:</strong> 1</span>
+    <span class="text-lg mt-2"><strong>CPF:</strong> 000.000.000-00</span>
+    <span class="text-lg mt-2"><strong>Total de vendas realizadas:</strong> 1</span>
+    <span class="text-lg mt-2"><strong>Total de dependentes cadastrados:</strong> 2</span>
+</div>
+
+<h2 class="text-2xl font-bold mt-10">Dependentes</h2>
+<table class="table-auto border-collapse border border-black rounded mt-10 overflow-auto mb-10">
+    <thead>
+        <tr class="font-bold">
+            <th class="border border-black py-1 px-3 text-left">Código</th>
+            <th class="border border-black py-1 px-3 text-left">Nome</th>
+            <th class="border border-black py-1 px-3 text-left">CPF</th>
+            <th class="border border-black py-1 px-3 text-left">Parentesco</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="border border-black py-1 px-3 text-left">1</td>
+            <td class="border border-black py-1 px-3 text-left">Lucas Rafael</td>
+            <td class="border border-black py-1 px-3 text-left">000.000.000-00</td>
+            <td class="border border-black py-1 px-3 text-left">Irmão(a)</td>
+        </tr>
+        <tr>
+            <td class="border border-black py-1 px-3 text-left">1</td>
+            <td class="border border-black py-1 px-3 text-left">Ana Leticia</td>
+            <td class="border border-black py-1 px-3 text-left">000.000.000-00</td>
+            <td class="border border-black py-1 px-3 text-left">Irmão(a)</td>
+        </tr>
+    </tbody>
+</table>
+
+<a class="rounded-lg bg-primary font-semibold text-white text-lg p-2" href="/funcionarios/1/cadastrar_dependente">Cadastrar dependente</a>

@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressLayouts = require('express-ejs-layouts');
+const moment = require('moment');
+moment.locale('pt-br');
 
 var indexRouter = require('./routes/index');
 var clientesRouter = require('./routes/clientes');
@@ -15,6 +17,11 @@ var produtosRouter = require('./routes/produtos');
 var vendasRouter = require('./routes/vendas');
 
 var app = express();
+
+app.use((req, res, next)=>{
+  res.locals.moment = moment;
+  next();
+});
 
 app.set('layout', 'layouts/default')
 app.set("layout extractScripts", true)
