@@ -13,4 +13,18 @@ router.get('/cadastrar', function(req, res) {
   res.render('clientes/cadastrar_cliente', { page: 'clientes' });
 });
 
+router.post('/cadastrar', function(req, res) {
+  const { nome, cpf } = req.body;
+
+  const cmd = `
+  INSERT INTO Comprador (nome, cpf)
+  VALUES (?, ?)
+  `
+
+  db.query(cmd, [nome, cpf], (error) => {
+    if (error) throw error;
+    res.redirect('/clientes');
+  })
+});
+
 module.exports = router;

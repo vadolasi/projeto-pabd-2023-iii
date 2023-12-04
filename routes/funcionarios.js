@@ -14,6 +14,20 @@ router.get('/cadastrar', function(req, res) {
   res.render('funcionarios/cadastrar_funcionario', { page: 'funcionarios' });
 });
 
+router.post('/cadastrar', function(req, res) {
+  const { nome, cpf } = req.body;
+
+  const cmd = `
+  INSERT INTO Funcionario (nome, cpf)
+  VALUES (?, ?)
+  `
+
+  db.query(cmd, [nome, cpf], (error) => {
+    if (error) throw error;
+    res.redirect('/funcionarios');
+  })
+});
+
 router.get('/:id', function(req, res) {
   const cmd = `SELECT * FROM Funcionario WHERE id = ${req.params.id}`
   db.query(cmd, (error, result) => {

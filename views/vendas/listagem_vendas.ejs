@@ -20,8 +20,8 @@
             <tr>
                 <td class="border border-black py-1 px-3 text-left"><%= venda.codigo %></td>
                 <td class="border border-black py-1 px-3 text-left"><%= moment(venda.data).format('DD/MM/YYYY') %></td>
+                <td class="border border-black py-1 px-3 text-left">R$ <%= venda.valor.toFixed(2).replace(".", ",") %></td>
                 <td class="border border-black py-1 px-3 text-left"><%= venda.items %></td>
-                <td class="border border-black py-1 px-3 text-left"><%= venda.valor %></td>
                 <td class="border border-black py-1 px-3 text-left"><%= venda.funcionario %></td>
                 <td class="border border-black py-1 px-3 text-left"><%= venda.comprador %></td>
                 <td class="border border-black py-1 px-3 text-left">
