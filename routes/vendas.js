@@ -3,7 +3,7 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
   const cmd = `
-  SELECT *, Funcionario.nome as funcionario, Comprador.nome as comprador FROM Venda
+  SELECT *, Venda.codigo as codigo, Funcionario.nome as funcionario, Comprador.nome as comprador FROM Venda
   INNER JOIN Funcionario
 	  ON Venda.codigoFuncionario = Funcionario.codigo
   INNER JOIN Comprador
@@ -64,9 +64,10 @@ router.get('/:id', function(req, res) {
 
 router.post('/deletar', function(req, res) {
   const cmd = `
-  DELETE FROM Venda WHERE codigo = ${req.body.id}
+  DELETE FROM Venda WHERE codigo = ?
   `
-  db.query(cmd, (error) => {
+
+  db.query(cmd, [req.body.codigo], (error, res2) => {
     if (error) throw error;
     res.redirect('/vendas');
   })

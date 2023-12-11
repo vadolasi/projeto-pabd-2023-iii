@@ -1,11 +1,11 @@
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
-    host: 'captain.infrashub.vitordaniel.com',
+    host: 'localhost',
     user: 'root',
-    password: 'asdf1234',
-    port: 1004,
-    database: 'dbmaquiagem',
+    password: '',
+    port: 3306,
+    database: 'fabrica_maquiagem',
     multipleStatements: true
 });
 

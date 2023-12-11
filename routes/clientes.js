@@ -14,10 +14,10 @@ router.get('/cadastrar', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  const cmd = `SELECT * FROM Comprador WHERE id = ${req.params.id}`
-  db.query(cmd, (error, result) => {
+  const cmd = `SELECT * FROM Comprador WHERE codigo = ?`
+  db.query(cmd, [req.params.id], (error, result) => {
     if (error) throw error;
-    res.render('clientes/visualizar_cliente', { page: 'clientes', cliente: result });
+    res.render('clientes/visualizar_cliente', { page: 'clientes', title: result[0].nome, cliente: result[0] });
   })
 });
 
@@ -36,8 +36,8 @@ router.post('/cadastrar', function(req, res) {
 });
 
 router.post('/deletar', function(req, res) {
-  const cmd = `DELETE FROM Comprador WHERE id = ${req.body.id}`
-  db.query(cmd, (error) => {
+  const cmd = `DELETE FROM Comprador WHERE codigo = ?`
+  db.query(cmd, [req.body.codigo], (error) => {
     if (error) throw error;
     res.redirect('/clientes');
   })

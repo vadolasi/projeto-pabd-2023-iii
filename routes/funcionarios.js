@@ -29,16 +29,22 @@ router.post('/cadastrar', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  const cmd = `SELECT *, COUNT(codigoFuncionario) as vendas FROM Funcionario WHERE id = ${req.params.id} INNER JOIN Venda ON Funcionario.codigo = Venda.codigoFuncionario`
-  db.query(cmd, (error, result) => {
+  const cmd = `
+  SELECT *, Funcionario.codigo, COUNT(codigoFuncionario) as vendas
+  FROM Funcionario
+  INNER JOIN Venda
+    ON Funcionario.codigo = Venda.codigoFuncionario
+  WHERE Funcionario.codigo = ?
+  `
+  db.query(cmd, [req.params.id], (error, result) => {
     if (error) throw error;
-    res.render('funcionarios/visualizar_funcionario', { title: "Vitor Daniel", page: 'funcionarios', funcionario: result });
+    res.render('funcionarios/visualizar_funcionario', { title: "Vitor Daniel", page: 'funcionarios', funcionario: result[0] });
   })
 });
 
 router.post('/deletar', function(req, res) {
-  const cmd = `DELETE FROM Funcionario WHERE id = ${req.body.id}`
-  db.query(cmd, (error) => {
+  const cmd = `DELETE FROM Funcionario WHERE codigo = ?`
+  db.query(cmd, [req.body.codigo], (error) => {
     if (error) throw error;
     res.redirect('/funcionarios');
   })
