@@ -29,10 +29,18 @@ router.post('/cadastrar', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  const cmd = `SELECT * FROM Funcionario WHERE id = ${req.params.id}`
+  const cmd = `SELECT *, COUNT(codigoFuncionario) as vendas FROM Funcionario WHERE id = ${req.params.id} INNER JOIN Venda ON Funcionario.codigo = Venda.codigoFuncionario`
   db.query(cmd, (error, result) => {
     if (error) throw error;
     res.render('funcionarios/visualizar_funcionario', { title: "Vitor Daniel", page: 'funcionarios', funcionario: result });
+  })
+});
+
+router.post('/deletar', function(req, res) {
+  const cmd = `DELETE FROM Funcionario WHERE id = ${req.body.id}`
+  db.query(cmd, (error) => {
+    if (error) throw error;
+    res.redirect('/funcionarios');
   })
 });
 

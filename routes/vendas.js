@@ -49,14 +49,26 @@ router.post('/cadastrar', function(req, res) {
 
 router.get('/:id', function(req, res) {
   const cmd = `
-  SELECT * FROM Venda
-  INNER JOIN Comprador ON Venda.codigoComprador = Comprador.codigo
-  INNER JOIN Funcionario ON Venda.codigoFuncionario = Funcionario.codigo
+  SELECT *, Funcionario.nome as funcionario, Comprador.nome as comprador FROM Venda
+  INNER JOIN Funcionario
+	  ON Venda.codigoFuncionario = Funcionario.codigo
+  INNER JOIN Comprador
+	  ON Venda.codigoComprador = Comprador.codigo;
   WHERE Venda.codigo = ${req.params.id}
   `
   db.query(cmd, (error, result) => {
     if (error) throw error;
     res.render('vendas/visualizar_venda', { page: 'vendas', vendas: result, title: `Venda #${req.params.id}` });
+  })
+});
+
+router.post('/deletar', function(req, res) {
+  const cmd = `
+  DELETE FROM Venda WHERE codigo = ${req.body.id}
+  `
+  db.query(cmd, (error) => {
+    if (error) throw error;
+    res.redirect('/vendas');
   })
 });
 

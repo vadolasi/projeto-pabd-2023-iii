@@ -13,6 +13,14 @@ router.get('/cadastrar', function(req, res) {
   res.render('clientes/cadastrar_cliente', { page: 'clientes' });
 });
 
+router.get('/:id', function(req, res) {
+  const cmd = `SELECT * FROM Comprador WHERE id = ${req.params.id}`
+  db.query(cmd, (error, result) => {
+    if (error) throw error;
+    res.render('clientes/visualizar_cliente', { page: 'clientes', cliente: result });
+  })
+});
+
 router.post('/cadastrar', function(req, res) {
   const { nome, cpf } = req.body;
 
@@ -22,6 +30,14 @@ router.post('/cadastrar', function(req, res) {
   `
 
   db.query(cmd, [nome, cpf], (error) => {
+    if (error) throw error;
+    res.redirect('/clientes');
+  })
+});
+
+router.post('/deletar', function(req, res) {
+  const cmd = `DELETE FROM Comprador WHERE id = ${req.body.id}`
+  db.query(cmd, (error) => {
     if (error) throw error;
     res.redirect('/clientes');
   })
