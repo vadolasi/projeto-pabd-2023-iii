@@ -38,9 +38,36 @@ router.get('/:id', function(req, res) {
   `
   db.query(cmd, [req.params.id], (error, result) => {
     if (error) throw error;
-    res.render('funcionarios/visualizar_funcionario', { title: "Vitor Daniel", page: 'funcionarios', funcionario: result[0] });
+    res.render('funcionarios/visualizar_funcionario', { title: result[0].nome, page: 'funcionarios', funcionario: result[0] });
   })
 });
+
+router.get('/:id/editar', function(req, res) {
+  const cmd = `
+  SELECT codigo, cpf, nome
+  FROM Funcionario
+  WHERE Funcionario.codigo = ?
+  `
+
+  db.query(cmd, [req.params.id], (error, result) => {
+    if (error) throw error;
+    res.render('funcionarios/editar_funcionario', { title: `${result[0].nome} - Editar`, page: 'funcionarios', funcionario: result[0] });
+  })
+});
+
+router.post('/:id/editar', function(req, res) {
+  const cmd = `
+  UPDATE Funcionario
+  SET nome = ?, cpf = ?
+  WHERE Funcionario.codigo = ?
+  `
+
+  db.query(cmd, [req.body.nome, req.body.cpf, req.params.id], (error, result) => {
+    if (error) throw error;
+    res.redirect(`/funcionarios/${req.params.id}`)
+  })
+});
+
 
 router.post('/deletar', function(req, res) {
   const cmd = `DELETE FROM Funcionario WHERE codigo = ?`

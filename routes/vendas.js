@@ -49,16 +49,42 @@ router.post('/cadastrar', function(req, res) {
 
 router.get('/:id', function(req, res) {
   const cmd = `
-  SELECT *, Funcionario.nome as funcionario, Comprador.nome as comprador FROM Venda
+  SELECT *, Venda.codigo as codigo, Funcionario.nome as funcionario, Comprador.nome as comprador FROM Venda
   INNER JOIN Funcionario
 	  ON Venda.codigoFuncionario = Funcionario.codigo
   INNER JOIN Comprador
 	  ON Venda.codigoComprador = Comprador.codigo;
-  WHERE Venda.codigo = ${req.params.id}
+  WHERE Venda.codigo = ?
   `
-  db.query(cmd, (error, result) => {
+  db.query(cmd, [req.params.id], (error, result) => {
     if (error) throw error;
     res.render('vendas/visualizar_venda', { page: 'vendas', vendas: result, title: `Venda #${req.params.id}` });
+  })
+});
+
+router.get('/:id/editar', function(req, res) {
+  const cmd = `
+  SELECT * FROM Venda
+  WHERE Venda.codigo = ?
+  `
+
+  const cmd2 = `
+  SELECT * FROM Comprador;
+  `
+
+  const cmd3 = `
+  SELECT * FROM Funcionario;
+  `
+
+  db.query(cmd, [req.params.id], (error, result) => {
+    if (error) throw error;
+    db.query(cmd2, (error, result2) => {
+      if (error) throw error;
+      db.query(cmd3, (error, result3) => {
+        if (error) throw error;
+        res.render('vendas/editar_venda', { page: 'vendas', clientes: result2, funcionarios: result3, venda: result, title: `Editar venda #${req.params.id}` });
+      })
+    })
   })
 });
 

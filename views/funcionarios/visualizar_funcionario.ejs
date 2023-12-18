@@ -1,6 +1,6 @@
 <%- contentFor('title') %> <%= title %>
 <%- contentFor('body') %>
-<h1 class="text-3xl font-bold">Vitor Daniel</h1>
+<h1 class="text-3xl font-bold"><%= funcionario.nome %></h1>
 
 <div class="grid grid-cols-2 mt-2 gap-2 w-175">
     <span class="text-lg mt-2"><strong>Código:</strong> <%= funcionario.codigo %></span>
@@ -9,11 +9,12 @@
     <span class="text-lg mt-2"><strong>Total de dependentes cadastrados:</strong> 2</span>
 </div>
 
-<form class="mt-10" method="POST" action="/funcionarios/deletar">
+<form id="form" class="mt-10 flex gap-2" method="POST" action="/funcionarios/deletar">
     <input type="hidden" id="codigo" name="codigo" value="<%= funcionario.codigo %>" />
     <button class="rounded-lg bg-red-500 font-semibold text-white text-lg py-2 px-5">Deletar</button>
+    <a class="rounded-lg bg-pink-300 font-semibold text-white text-lg py-2 px-5" href="/funcionarios/<%= funcionario.codigo %>/editar">Editar</a>
 </form>
-
+    
 <h2 class="text-2xl font-bold mt-10">Dependentes</h2>
 <table class="table-auto border-collapse border border-black rounded mt-10 overflow-auto mb-10">
     <thead>
@@ -41,3 +42,27 @@
 </table>
 
 <a class="rounded-lg bg-primary font-semibold text-white text-lg p-2" href="/funcionarios/<%= funcionario.codigo %>/cadastrar_dependente">Cadastrar dependente</a>
+
+<script>
+    const form = document.getElementById("form")
+    
+    form.addEventListener("submit", ev => {
+        ev.preventDefault()
+    
+        Swal.fire({
+            title: "Tem certeza disso?",
+            text: "Tem certeza que dejesa deletar este funcionário? Esta acção não pode ser desfeita",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, prosseguir",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit()
+            }
+        })
+    })
+</script>
+    

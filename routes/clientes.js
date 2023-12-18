@@ -21,6 +21,27 @@ router.get('/:id', function(req, res) {
   })
 });
 
+router.get('/:id/editar', function(req, res) {
+  const cmd = `SELECT * FROM Comprador WHERE codigo = ?`
+  db.query(cmd, [req.params.id], (error, result) => {
+    if (error) throw error;
+    res.render('clientes/editar_cliente', { page: 'clientes', cliente: result[0] });
+  })
+});
+
+router.post('/:id/editar', function(req, res) {
+  const cmd = `
+  UPDATE Comprador
+  SET nome = ?, cpf = ? 
+  WHERE codigo = ?
+  `
+
+  db.query(cmd, [req.body.nome, req.body.cpf, req.params.id], (error, result) => {
+    if (error) throw error;
+    res.redirect(`/clientes/${req.params.id}`)
+  })
+});
+
 router.post('/cadastrar', function(req, res) {
   const { nome, cpf } = req.body;
 

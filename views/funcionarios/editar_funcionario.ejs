@@ -1,0 +1,14 @@
+<%- contentFor('title') %> Editar funcionario: <%= funcionario.nome %>
+<%- contentFor('body') %>
+<h1 class="text-3xl font-bold">Editar funcionario: <%= funcionario.nome %></h1>
+<form class="w-1/4 flex flex-col gap-4 mt-5" method="POST" action="/funcionarios/<%= funcionario.codigo %>/editar">
+    <div class="flex flex-col gap-2">
+        <label for="nome">Nome</label>
+        <input type="text" value="<%= funcionario.nome %>" name="nome" id="nome" class="border border-black rounded-lg focus:outline-none p-2 bg-white" />
+    </div>
+    <div class="flex flex-col gap-2">
+        <label for="cpf">CPF</label>
+        <input type="text" value="<%= funcionario.cpf %>" name="cpf" id="cpf" class="border border-black rounded-lg focus:outline-none p-2 bg-white" />
+    </div>
+    <button class="rounded-lg bg-primary font-semibold text-white text-lg py-2 px-5 mt-5 w-min">Salvar</button>
+</form>
